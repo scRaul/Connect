@@ -2,11 +2,8 @@
 #define CONTROLLER__H
 
 
-#include<iostream>
-#include<cstdlib>
-#include <chrono>
-#include <thread>
 
+using std::vector;
 class Controller{
 public:
     Controller(){};
@@ -38,13 +35,15 @@ class AI:public Controller{
 public:
     AI(){};
     int getInput(vector<int> v){
+        srand(time(0));
         int num = 0;
         std::vector<int>::iterator it = v.end();
         while(it == v.end()){
             num = rand() % v.size();
             it = find (v.begin(),v.end(),num);
+            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         }
-        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        
         return num;
     }
     

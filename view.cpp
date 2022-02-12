@@ -1,15 +1,20 @@
-#include "View.h"
-#include <cmath>
-#include <iostream>
-#include <iomanip>
+#include "Include.h"
 
 using std::cout;
 using std::endl;
 
+View::View(int playerCount){
+    
+    sigils = new char[playerCount];
+    for(int i = 0; i < playerCount;i++){
+        sigils[i] = (char) 'Z' - i;
+    }
+}
+
 void View::display(vector<int> board){
     int size = board.size();
     int n = sqrt(size);
-    int pad = 2*n / 10 + 1;
+    int pad = log10(size) + 1;
     for(int i = 0; i < size; i++){
         if(board[i] < 0)
             cout<<std::setw(pad)<<std::right<<sigils[(board[i]*-1) - 1];
@@ -30,5 +35,11 @@ void View::display(vector<int> board){
     cout<<endl;
 }
 void View::gameOver(int turn){
-    cout<<"Game Over " << turn <<endl;
+    if(turn)
+        cout<<sigils[turn-1] <<" WINS!"<<endl;
+    else
+        cout<<"DRAW!\n";
+}
+void View::prompt(int turn){
+    cout<<"Player " << sigils[turn-1] <<" choose a slot...\n";
 }

@@ -1,12 +1,8 @@
-#include "Connect.h"
-
-
-#include<sstream>
-#include<fstream>
+ #include "Include.h"
 
 
 using std::set;
-Connect::Connect(int dim, int connect){
+Connect::Connect(int dim, int connect,int playerCount,int bots){
     std::string temp = "./wins ";
     temp += std::to_string(dim) +" " + std::to_string(connect);
     temp += " > wins.text";
@@ -15,10 +11,11 @@ Connect::Connect(int dim, int connect){
     const char* cmd = temp.c_str();
     system(cmd);
     
-    v = new View();
     this->dim = dim;
     this->connect = connect;
-    
+    this->playerCount = playerCount;
+    this->bots = bots;
+  
     int size = dim * dim;
     for(int i = 0; i < size; i++){
         board.push_back(i);
@@ -28,57 +25,6 @@ Connect::Connect(int dim, int connect){
     
 }
 
-void Connect::play(){
-    updateView();
-    Controller *p1 = new UserInput();
-    Controller *ai = new AI();
-    
-    set<int> p1Moves;
-    set<int> aiMoves;
-    
-    bool game = false;
-    int moveCount = 0;
-    
-    int turn = 1;
-    while(!game){
-        Controller *c;
-        set<int> s;
-        if( turn == 1)
-            c = p1;
-        else
-            c = ai;
-        int pos = c->getInput(board);
-        moveCount++;
-        board[pos] = turn * -1;
-        updateView();
-        
-        if(turn ==1){
-            p1Moves.insert(pos);
-            s = p1Moves;
-        }
-        else{
-            aiMoves.insert(pos);
-            s = aiMoves;
-        }
-        
-        if(moveCount > connect){
-            game = matchSequence(s,pos);
-        }
-        if( moveCount == dim*dim){
-            game = true;
-            turn = 3;
-        }
-        
-        turn = 3 - turn;
-    }
-    
-    gameOver(turn);
-    
-    
-    
-    
-    
-}
 void Connect::fillWinSequences(){
     std::ifstream infile;
     infile.open("wins.text");
@@ -120,4 +66,56 @@ bool Connect::matchSequence(set<int> moves,int key){
         }
     }
     return false;
+}
+void Connect::play(){
+    v = new View(playerCount + bots);
+    
+    vector<Controller *> controllers;
+    for(int i = 0; i < playerCount;i++){
+        Controller *player = new UserInput();
+        controllers.push_back(player);
+    }
+    
+    for(int i = 0; i < bots;i++ ){
+        Controller *ai = new AI();
+        controllers.push_back(ai);
+    }
+    set<int> moves[playerCount+bots];
+    
+    bool game = false;
+    int moveCount = 0;
+    
+    int turn = 1;
+    while(!game){
+        v->display(board);
+        v->prompt(turn);
+        Controller *c;
+        set<int> s;
+        c = controllers[turn-1];
+        int pos = c->getInput(board);
+        board[pos] = turn * -1;
+        moveCount++;
+        
+        moves[turn-1].insert(pos);
+        s = moves[turn -1];
+        
+        
+        if(moveCount >= (playerCount+bots) * (connect-1) + 1){
+            game = matchSequence(s,pos);
+        }
+        if(!game)turn++;
+        if(turn == playerCount+bots+1) turn = 1;
+        if( moveCount == dim*dim && !game){
+            game = true;
+            turn = 0;
+        }
+        std::this_thread::sleep_for(std::chrono::milliseconds(500));
+    }
+    v->display(board);
+    v->gameOver(turn);
+    
+    
+    
+    
+    
 }

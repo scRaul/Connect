@@ -1,16 +1,14 @@
 #ifndef CONNECT__H
 #define CONNECT__H
 
+#include "Include.h"
 #include "View.h"
-#include "Controller.h"
-#include<set>
 
+using std::vector;
 class Connect{
 public:
-    Connect(int dim, int connect);
+    Connect(int dim, int connect,int playerCount,int bots);
     ~Connect(){delete v;}
-    void updateView(){ v->display(board); }
-    void gameOver(int turn){ v->gameOver(turn);}
     
     void play();
     
@@ -21,6 +19,8 @@ private:
     vector<int> board;
     int dim;
     int connect;
+    int playerCount;
+    int bots;
     vector<std::set<int> > winSets;
     void fillWinSequences();
     bool matchSequence(std::set<int> moves,int key);
