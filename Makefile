@@ -1,3 +1,11 @@
+all: Connect wins
+
+wins: wins.cpp
+	g++ -o wins wins.cpp
+	
+
+
+
 Connect: main.o connect.o view.o controller.o
 	g++ -o Connect main.o connect.o view.o controller.o
 main.o: main.cpp Connect.h View.h

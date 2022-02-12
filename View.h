@@ -14,6 +14,7 @@ public:
     }
     ~View(){}
     virtual void display(vector<int> board);
+    void gameOver(int turn);
 private:
     char* sigils;
 };

@@ -6,7 +6,7 @@
 
 int main(){
     
-    Connect c(3,3);
+    Connect c(20,3);
     c.play();
     
     return 0;

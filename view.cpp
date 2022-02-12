@@ -29,3 +29,6 @@ void View::display(vector<int> board){
     }
     cout<<endl;
 }
+void View::gameOver(int turn){
+    cout<<"Game Over " << turn <<endl;
+}
