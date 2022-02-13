@@ -109,7 +109,7 @@ void Connect::play(){
             game = true;
             turn = 0;
         }
-        std::this_thread::sleep_for(std::chrono::milliseconds(500));
+        //std::this_thread::sleep_for(std::chrono::milliseconds(500));
     }
     v->display(board);
     v->gameOver(turn);

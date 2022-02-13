@@ -3,10 +3,13 @@
 
 using std::cout;
 using std::cin;
+
 void menu();
 int getMode();
 void howTo();
+void colorLogo();
 Connect * setUp();
+
 
 int main(){
     
@@ -15,8 +18,7 @@ int main(){
     return 0;
 }
 void menu(){
-    cout<<"\n\n\n";
-    cout<<"\t\tCONNECT\n";
+    colorLogo();
     cout<<"\n\t1) single player \n\t2) multiplayer\n\t3) how to play\n";
     cout<<"\n\tenter a game mode\n";
 }
@@ -83,4 +85,27 @@ Connect * setUp(){
     cout<<"\n\n\n";
     Connect *c = new Connect(n,count,players,bots);
     return c;
+}
+void colorLogo(){
+    std::ifstream infile;
+    infile.open("logo.text");
+    if(infile.fail()){
+        cout<<"missing logo.text file\n";
+        exit(1);
+    }
+    char n;
+    while(infile.get(n)){
+    switch(n){
+        case '#':    cout << '\x1B' << "[0;37;41m"; break;  // white on red
+        case '%':    cout << '\x1B' << "[0;37;44m"; break;  // white on blue
+        case '&':    cout << '\x1B' << "[0;37;45m"; break;  // white on magenta
+        case '(':    cout << '\x1B' << "[0;37;46m"; break;  // white on cyan
+        case '*':    cout << '\x1B' << "[0;37;40m"; break;  // white on black
+        case ',':    cout << '\x1B' << "[0;31m"; break;     // red on white
+        case '/':    cout << '\x1B' << "[0;34m"; break;     // blue on white
+        case '@':    cout << '\x1B' << "[0;1;42m"; break;   // bold black on green
+        default:
+        case 0:    cout << '\x1B' << "[0;30m"; break;  // black on white (default)
+    }
+    }
 }
