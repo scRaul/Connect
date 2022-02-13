@@ -12,7 +12,7 @@ Connect * setUp();
 
 
 int main(){
-    
+    cout<<"adjust terminal width to 101\n";
     Connect* c = setUp();
     c->play();
     return 0;
@@ -107,5 +107,6 @@ void colorLogo(){
         default:
         case 0:    cout << '\x1B' << "[0;30m"; break;  // black on white (default)
     }
+        cout<<" ";
     }
 }
