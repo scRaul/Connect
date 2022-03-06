@@ -1,4 +1,4 @@
-all: Connect wins
+all: Play wins
 
 wins: wins.cpp
 	g++ -o wins wins.cpp
@@ -6,8 +6,8 @@ wins: wins.cpp
 
 
 
-Connect: main.o connect.o view.o controller.o
-	g++ -o Connect main.o connect.o view.o controller.o
+Play: main.o connect.o view.o controller.o
+	g++ -o Play main.o connect.o view.o controller.o
 main.o: main.cpp Connect.h View.h Include.h
 	g++ -c main.cpp
 connect.o: connect.cpp Connect.h View.h Controller.h Include.h
@@ -19,4 +19,4 @@ controller.o: controller.cpp Controller.h Include.h
 
 
 clean:
-	rm -f Connect *.o *~
+	rm -f Play wins *.o *~

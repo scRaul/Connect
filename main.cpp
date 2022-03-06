@@ -19,13 +19,13 @@ int main(){
 }
 void menu(){
     colorLogo();
-    cout<<"\n\t1) single player \n\t2) multiplayer\n\t3) how to play\n";
+    cout<<"\n\t1) Play\n\t3) how to play\n";
     cout<<"\n\tenter a game mode\n";
 }
 int getMode(){
     menu();
     char game = '-';
-    while( game != '1' && game != '2'){
+    while( game != '1'){
         cin >> game;
         if(game == '3'){
             howTo();
@@ -55,7 +55,7 @@ Connect * setUp(){
     int mode = getMode();
     int bots=0,players=1,n=3, count=3;
     std::string p = "p";
-    if(mode == 2){
+    if(mode == 1){
         cout<<"Enter number of many players (1-26): ";
         while(!isdigit(p[0])){
             cin >> p;
@@ -71,7 +71,7 @@ Connect * setUp(){
         bots = atoi(p.c_str());
     }
     p = "p";
-    cout<<"Enter n x n dimension (3 - 25): ";
+    cout<<"Enter board size (3 - 25): ";
     while(!isdigit(p[0])){
         cin >> p;
     }
