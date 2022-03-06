@@ -1,20 +1,17 @@
 # Connect
 ## Description
-Terminal Game Based off tic tac toe and connect four. User first selects game mode (single or multiplayer ). 
+Terminal Game Based off tic tac toe and connect four. 
 
-If single is selected, then user will be promted to enter number of bots, size of grid dimmension
-and number of connections to be made in order to win 
-
-if multiplayer user will first enter the number of players and then everthing from option 1
-
-For example single player tic tac toe can be done by
-selecting single player, entering 1 bot, dimension of grid to be 3, and connections to win to be 3
+User enters # of players 
+# of bots 
+diminsion of grid 
+# of cells to connect inorder to win
 
 ## How to download
 1. Download a zip 
 2. Unzip it 
 3. In a terminal window enter command $ make 
-4. then to playe enter the command $ ./Connect
+4. then to playe enter the command $ ./Play
 
 ## Techinical Chumbo
 
