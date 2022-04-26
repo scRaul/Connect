@@ -2,8 +2,7 @@
 ## Description
 Terminal Game Based off tic tac toe and connect four. 
 
-User enters # of players 
-# of bots 
+User enters # of players and # of bots 
 diminsion of grid 
 # of cells to connect inorder to win
 
@@ -13,7 +12,7 @@ diminsion of grid
 3. In a terminal window enter command $ make 
 4. then to playe enter the command $ ./Play
 
-## Techinical Chumbo
+## Techinical Details
 
 Disign is loosly based of module view controller, The model is the Connect.h class, holds grid information 
 and play function which contains game logic. The View is responsible for printing the model information 
