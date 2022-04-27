@@ -1,10 +1,10 @@
 # Connect
+
 ## Description
 Terminal Game Based off tic tac toe and connect four. 
 
 User enters # of players and # of bots 
-diminsion of grid 
-# of cells to connect inorder to win
+diminsion of grid # of cells to connect inorder to win
 
 ## How to download
 1. Download a zip 
