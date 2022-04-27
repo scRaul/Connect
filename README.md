@@ -1,5 +1,6 @@
 # Connect
-
+## Gameplay 
+https://youtu.be/mOdHLRsCzc4
 ## Description
 Terminal Game Based off tic tac toe and connect four. 
 
