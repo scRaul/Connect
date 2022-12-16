@@ -3,6 +3,8 @@
 using std::cout;
 using std::endl;
 
+
+// display using colors 
 std::string resetColor(){
     return "\x1B[0;30m";
 }
@@ -21,7 +23,7 @@ View::View(int playerCount){
         sigils[i] = (char) 'Z' - i;
     }
 }
-
+// display a bord using colors and characters 
 void View::display(vector<int> board){
     int size = board.size();
     int n = sqrt(size);
@@ -51,12 +53,14 @@ void View::display(vector<int> board){
     }
     cout<<endl;
 }
+// display game over or draw 
 void View::gameOver(int turn){
     if(turn)
         cout<<getColor(turn)<<sigils[turn-1] <<resetColor()<<" WINS!"<<endl;
     else
         cout<<"DRAW!\n";
 }
+// ask player for input 
 void View::prompt(int turn){
     cout<<"Player " << getColor(turn)<<sigils[turn-1] <<resetColor()<<" choose a slot...\n";
 }

@@ -10,7 +10,7 @@ Connect::Connect(int dim, int connect,int playerCount,int bots){
     //cout<<"Executing: "<<temp<<endl;
     const char* cmd = temp.c_str();
     system(cmd);
-    
+    //set up game 
     this->dim = dim;
     this->connect = connect;
     this->playerCount = playerCount;
@@ -21,10 +21,10 @@ Connect::Connect(int dim, int connect,int playerCount,int bots){
         board.push_back(i);
     }
     
-    fillWinSequences();
+    fillWinSequences(); // calculate all possible win sequnces 
     
 }
-
+ // calculate all possible win sequnces 
 void Connect::fillWinSequences(){
     std::ifstream infile;
     infile.open("wins.text");
@@ -47,7 +47,8 @@ void Connect::fillWinSequences(){
     }
     infile.close();
 }
-
+// if a set of moves exists in the set of win sequnces return true 
+// elese return false, @param key is used to filter the winning sets 
 bool Connect::matchSequence(set<int> moves,int key){
     for(int i = 0; i< winSets.size();i++){
         set<int> s = winSets[i];
@@ -77,7 +78,7 @@ void Connect::play(){
     }
     
     for(int i = 0; i < bots;i++ ){
-        Controller *ai = new AI();
+        Controller *ai = new BaisedAI(controllers.size()+1);
         controllers.push_back(ai);
     }
     set<int> moves[playerCount+bots];
@@ -93,15 +94,15 @@ void Connect::play(){
         set<int> s;
         c = controllers[turn-1];
         int pos = c->getInput(board);
-        board[pos] = turn * -1;
-        moveCount++;
+        board[pos] = turn *-1; // write the turn to the board as a negative// as current value is positive
+        moveCount++; 
         
-        moves[turn-1].insert(pos);
-        s = moves[turn -1];
+        moves[turn-1].insert(pos); // keep track of the player moves 
+        s = moves[turn -1];  // hold a reference to this set 
         
-        
+        // if more than or equal to min amount of moves needed to win 
         if(moveCount >= (playerCount+bots) * (connect-1) + 1){
-            game = matchSequence(s,pos);
+            game = matchSequence(s,pos); // try a match a winning sequence of moves 
         }
         if(!game)turn++;
         if(turn == playerCount+bots+1) turn = 1;
@@ -111,11 +112,6 @@ void Connect::play(){
         }
         //std::this_thread::sleep_for(std::chrono::milliseconds(500));
     }
-    v->display(board);
-    v->gameOver(turn);
-    
-    
-    
-    
-    
+    v->display(board);  // update the board
+    v->gameOver(turn); // check if this turn caused the game to be over
 }

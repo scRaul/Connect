@@ -5,6 +5,12 @@
 
 using std::vector;
 
+/*
+Takes in a list of integers and dsiplays 
+them to the terminal 
+based on the value.
+*/
+
 class View{
 public:
     View(int playerCount);
